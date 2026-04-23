@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "SOCARfont_20171109";
+    src: url("../fonts/SOCARfont_20171109-Bold.woff2") format("woff2"), url("../fonts/SOCARfont_20171109-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback
+}
+
+@font-face {
+    font-family: "SOCARfont_20171109";
+    src: url("../fonts/SOCARfont_20171109-Medium.woff2") format("woff2"), url("../fonts/SOCARfont_20171109-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: fallback
+}
+
+@font-face {
+    font-family: "SOCARfont_20171109";
+    src: url("../fonts/SOCARfont_20171109-Regular.woff2") format("woff2"), url("../fonts/SOCARfont_20171109-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback
+}
+
+@font-face {
+    font-family: "SOCARfont_20171109";
+    src: url("../fonts/SOCARfont_20171109-Light.woff2") format("woff2"), url("../fonts/SOCARfont_20171109-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: fallback
+}
+
+/*# sourceMappingURL=fonts.css.map */

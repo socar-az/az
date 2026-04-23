@@ -1,0 +1,14 @@
+.btn__icon {
+    position: relative;
+}
+
+.btn__icon img {
+    width: 100% !important;
+    height: 100% !important;
+    outline: none !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+

@@ -1,0 +1,313 @@
+/*
+* Livechat Version 1772192726 [2026-02-27]
+* Whelp, Inc. - whelp.co
+*/
+
+const MainLivechatConfig = {"APP": "Whelp", "FONTS_URL": "livechat-frontend/fonts/", "HOST_URL": "https://widget.whelp.co/", "INIT_URL": "https://widget-api.whelp.co", "NOTIFY_SOUND_ENDPOINT": "sound/notify", "RATE_ENDPOINT_BASE_URL": "https://widget-api.whelp.co", "REACT_MAIN_FILE": "livechat.1772192726.js", "SOCIAL_MEDIA_URL": "livechat-frontend/icons/"};
+let Whelp = MainLivechatInitializer;
+
+
+
+const MainLivechatUtils={createElement(tagName,{classList,props,children,style,attr}){if(typeof classList!=="undefined"&&!Array.isArray(classList)){throw Error("Incorrect classList type");}
+if(typeof props!=="undefined"&&typeof props!=="object"){throw Error("Incorrect props type");}
+if(typeof style!=="undefined"&&typeof style!=="object"){throw Error("Incorrect style type");}
+if(typeof attr!=="undefined"&&typeof attr!=="object"){throw Error("Incorrect attr type");}
+const el=document.createElement(tagName);if(classList){for(let i=0;i<classList.length;i++){el.classList.add(classList[i]);}}
+if(props){const keys=Object.keys(props);for(let i=0;i<keys.length;i++){el[keys[i]]=props[keys[i]];}}
+if(attr){const keys=Object.keys(attr);for(let i=0;i<keys.length;i++){el.setAttribute(keys[i],attr[keys[i]]);}}
+if(style){const keys=Object.keys(style);for(let i=0;i<keys.length;i++){el.style[keys[i]]=style[keys[i]];}}
+if(children){el.append(...children);}
+return el;},appendBody(element){document.body.append(element);},updateUnread(unread){try{const el=document.getElementById(`${MainLivechatConfig.APP}ControllerBadge`);el.innerHTML=String(unread);if(unread==0){el.hidden=true;}}catch{}},increaseUnread(){try{const sound=window.MainLivechatSound;if(sound){sound.incoming();}
+const frameEl=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);if(!Array.from(frameEl.classList).includes(`${MainLivechatConfig.APP}LivechatFrame-disabled`)){return;}
+const el=document.getElementById(`${MainLivechatConfig.APP}ControllerBadge`);el.classList.remove(`${MainLivechatConfig.APP}DisplayNone`);el.hidden=false;let text=Number(el.innerHTML);if(text===99){el.innerHTML="99+";}else{el.innerHTML=String(text+1);}}catch{}},applyStyling(){const styleEl=document.createElement("style");const fontsBaseUrl=`${MainLivechatConfig.HOST_URL}${MainLivechatConfig.FONTS_URL}`;styleEl.append(`@font-face {
+          font-family: Open Sans;
+          src: url(${fontsBaseUrl}OpenSans-Light.ttf);
+          font-weight: 300;
+        }
+        @font-face {
+          font-family: Open Sans;
+          src: url(${fontsBaseUrl}OpenSans-Regular.ttf);
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: Open Sans;
+          src: url(${fontsBaseUrl}OpenSans-Medium.ttf);
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: Open Sans;
+          src: url(${fontsBaseUrl}OpenSans-SemiBold.ttf);
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: Open Sans;
+          src: url(${fontsBaseUrl}OpenSans-Bold.ttf);
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: Open Sans;
+          src: url(${fontsBaseUrl}OpenSans-ExtraBold.ttf);
+          font-weight: 800;
+        }
+        #${MainLivechatConfig.APP}Controller{\
+          width: 60px;\
+          height: 60px;\
+          border-radius: 50%;\
+          position: fixed;\
+          bottom: 24px;\
+          background: black;\
+          display: flex;\
+          align-items: center;\
+          justify-content: center;\
+          cursor: pointer;\
+          box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.06), 0px 2px 28px rgba(0, 0, 0, 0.16);\
+          box-sizing: border-box;\
+          padding: 8px;\
+          z-index: 999999;\
+          transition: 0.2s linear;\
+        }\
+        #${MainLivechatConfig.APP}Controller:hover {\
+          transform: scale(1.05);\
+        }\
+        .${MainLivechatConfig.APP}ControllerAnimation{\
+          animation: MainLivechatControllerAnimationKeyframes forwards 0.2s;\
+        }\
+        #${MainLivechatConfig.APP}LivechatFrame{\
+          height: 640px;\
+          width: 375px;\
+          position: fixed;\
+          bottom: 24px;\
+          border: none;\
+          outline: none;\
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1), 0px 8px 40px rgba(0, 0, 0, 0.2);\
+          border-radius: 12px;\
+          z-index: 1000000;\
+        }\
+        .${MainLivechatConfig.APP}Proactive{\
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          z-index: 999999;
+          font-family: "Open Sans", sans-serif;\
+        }\
+        .${MainLivechatConfig.APP}ProactiveBase{\
+          max-width: 320px;
+        }\
+        .${MainLivechatConfig.APP}Proactive *{\
+          margin-top:0;
+          margin-bottom:0;
+        }\
+        .${MainLivechatConfig.APP}Proactive iframe{\
+          max-width: 100%;
+          max-height: 240px;
+          margin-top: 8px;
+          margin-bottom: 8px;
+        }\
+        .${MainLivechatConfig.APP}LivechatFrame-disabled{\
+          pointer-events: none;\
+          opacity: 0;\
+          transform: translateY(50px);
+          height: 0 !important;
+        }\
+        .${MainLivechatConfig.APP}LivechatFrameRight{\
+          right:24px;\
+        }\
+        .${MainLivechatConfig.APP}LivechatFrameLeft{\
+          left:24px;\
+        }\
+        .${MainLivechatConfig.APP}HideDesktop {
+          display: none !important;\
+        }\
+        @media(min-width:499px) {\
+          .${MainLivechatConfig.APP}LivechatShowDesktop {
+            display: flex !important;
+          }\
+          .${MainLivechatConfig.APP}LivechatHideDesktop {
+            display: none !important;
+          }\
+        }\
+        @media(max-width: 500px){\
+          .${MainLivechatConfig.APP}LivechatShowMobile {
+            display: flex !important;
+          }\
+          .${MainLivechatConfig.APP}LivechatHideMobile {
+            display: none !important;
+          }\
+          #${MainLivechatConfig.APP}LivechatFrame{\
+            height: 100%;\
+            width: 100vw;\
+            right: 0px !important;\
+            bottom: 0px !important;\
+            border-radius: 0px;\
+          }\
+          .${MainLivechatConfig.APP}HideDesktop {
+            display: flex !important;
+          }\
+          .${MainLivechatConfig.APP}ProactiveBase{\
+            max-width: 70vw !important;
+          }\
+        }\
+        .${MainLivechatConfig.APP}ControllerImage {\
+          object-fit: cover;\
+          width: 100%;\
+          height: 100%;\
+          padding: 2px;\
+          box-sizing: border-box;\
+        }\
+        .${MainLivechatConfig.APP}InnerIconWrapper {\
+          display: flex;\
+          alignItems: center;\
+          margin-left: 0px !important;\
+          flex-shrink: 0;\
+        }\
+        .${MainLivechatConfig.APP}InnerIconWrapper img{\
+          height: 36px;\
+          width: 36px;\
+          border-radius: 50%;\
+          flex-shrink: 0;\
+        }\
+        #${MainLivechatConfig.APP}ControllerBadge{\
+          font-size: 14px;\
+          font-weight: 500;\
+          position: absolute;\
+          right: -2px;\
+          top: -4px;\
+          z-index: 1;\
+          background: rgb(230, 25, 25);\
+          padding: 2px 6px;\
+          line-height: 15px;\
+          border-radius: 50%;\
+          color: white;\
+          font-family: "Open Sans", sans-serif;\
+        }\
+        .${MainLivechatConfig.APP}NoScrollAndHidden {
+          overflow: hidden !important;
+          height: 0 !important;
+          margin: 0 !important;
+          touch-action: none;
+          -ms-touch-action: none;
+        }
+        .${MainLivechatConfig.APP}NoScroll {
+          overflow: hidden !important;
+        }
+        .${MainLivechatConfig.APP}ImagePreviewWrapper {
+          position: fixed;
+          display: flex;
+          width: 100vw;
+          height: 100vh;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000001;
+          left: 0;
+          top: 0;
+          background-color: rgba(0,0,0,0.4);
+        }
+        .${MainLivechatConfig.APP}ImagePreviewImageWrapper {
+          max-height: 65vh;
+          max-width: 60vw;
+          min-width: 300px;
+          min-height: 120px;
+          box-shadow: 0px -1px 12px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.08);
+          pointer-events: all;
+          position: relative;
+          border-radius: 12px;
+        }
+        .${MainLivechatConfig.APP}ImagePreviewSrc {
+          width: 100%;
+          height: 100%;
+          background-color: white;
+          border-radius: 12px;
+        }
+        .${MainLivechatConfig.APP}ImagePreviewCloseIcon {
+          position: absolute;
+          right: 8px;
+          top: 8px;
+          cursor: pointer;
+          transition: 0.2s linear;
+          width: 24px;
+          height: 24px;
+        }
+        .${MainLivechatConfig.APP}DisplayNone{\
+          display: none !important;\
+        }\
+       .${MainLivechatConfig.APP}ImagePreviewCloseIcon:hover {
+          transform: scale(1.1);
+          transition: 0.2s linear;
+        }
+        @media(max-width: 500px){\
+          .${MainLivechatConfig.APP}ImagePreviewImageWrapper {
+            max-width: 90vw;
+          }
+        }\
+        @keyframes ${MainLivechatConfig.APP}ControllerAnimationKeyframes {\
+          from {\
+            transform: scale(0.5);\
+          }\
+          to{\
+            transform: none;\
+          }\
+        }\
+      `);document.body.prepend(styleEl);},showEvents:[],hideEvents:[],onUnreadChangeEvents:[],onConversationCreatedEvents:[],onIncomingMessageEvents:[],loadEvents:[],onProactiveShowEvents:[],onProactiveHideEvents:[],onProactiveClickEvents:[],};const MainLivechatInitializeButton=async()=>{const{createElement,appendBody,updateUnread}=MainLivechatUtils;const app_id=window.MainLivechatOptions.app_id;const fingerPrint=window.MainLivechatFingerprint;const contact=window.MainLivechatOptions.contact;const identity=window.MainLivechatOptions.identity;const push=window.MainLivechatOptions.push;const disableTitleUpdate=window.MainLivechatOptions.disableTitleUpdate??false;if(!app_id){console.error(new Error("app_id is required | Livechat Error"));return;}
+const res=await fetch(MainLivechatConfig.INIT_URL+`/init`,{method:"post",body:JSON.stringify({user:fingerPrint,widget:app_id,contact,identity,push,}),headers:{"Content-Type":"application/json",},});if(res.status!==200){throw new Error(`Could not initialized Livechat | ${res.status}`);}
+const config=await res.json();const params=new URLSearchParams(window.location.search);let dev=false;if(params.get("dev")=="true"){dev=true;}
+MainLivechatInitializer("sendConfig",config.data);window.MainLivechatData=config.data;window.MainLivechatUtils=MainLivechatUtils;const button=config.data.widget.settings.button;const unread=config.data.widget.unread;const controllerEl=createElement("div",{classList:[`${MainLivechatConfig.APP}ControllerAnimation`],props:{id:`${MainLivechatConfig.APP}Controller`,onclick:()=>{MainLivechatInitializer("showMessenger");updateUnread(0);},onload:()=>{setTimeout(()=>{controllerEl.classList.remove(`${MainLivechatConfig.APP}ControllerAnimation`);},200);},},style:{background:button.style.background,},children:[createElement("img",{classList:[`${MainLivechatConfig.APP}ControllerImage`],props:{src:config.data.config.storage+
+config.data.widget.settings.button.icon,},}),createElement("div",{props:{id:`${MainLivechatConfig.APP}ControllerBadge`,hidden:unread==0||!unread?true:false,},classList:unread?undefined:[`${MainLivechatConfig.APP}DisplayNone`],children:[Number(unread)>99?"99+":String(unread)],}),],});if(config.data.widget.settings.button.mobile==1){controllerEl.classList.add(`${MainLivechatConfig.APP}LivechatShowMobile`);}else{controllerEl.classList.add(`${MainLivechatConfig.APP}LivechatHideMobile`);}
+if(config.data.widget.settings.button.web==1){controllerEl.classList.add(`${MainLivechatConfig.APP}LivechatShowDesktop`);}else{controllerEl.classList.add(`${MainLivechatConfig.APP}LivechatHideDesktop`);}
+const customizedStyles=window.MainLivechatOptions.style;let _horizontalPadding=24;let _verticalPadding=24;let _alignment="right";if(customizedStyles&&typeof customizedStyles==="object"){if(customizedStyles.alignment){_alignment=customizedStyles.alignment;}
+if(customizedStyles.horizontalPadding||customizedStyles.horizontalPadding===0){_horizontalPadding=customizedStyles.horizontalPadding;}
+if(customizedStyles.verticalPadding||customizedStyles.verticalPadding===0){_verticalPadding=customizedStyles.verticalPadding;}
+if(customizedStyles.button){if(customizedStyles.button.customLauncherClass){controllerEl.classList.add(customizedStyles.button.customLauncherClass);}
+if(customizedStyles.button.hideChannelsOnBoot){_hideChannelsOnBoot=true;}}}
+const closeIconSvg=`${MainLivechatConfig.HOST_URL}${MainLivechatConfig.SOCIAL_MEDIA_URL}close.svg`;let timer=null;const proactiveEl=createElement("div",{classList:[`${MainLivechatConfig.APP}Proactive`],children:[createElement("div",{props:{onclick:()=>{const fn=window.MainLivechatProactive;if(fn!=null){fn.destroyAllActive();}
+proactiveEl.classList.add(`${MainLivechatConfig.APP}DisplayNone`);},},style:{marginLeft:"auto",order:"0",},children:[createElement("img",{style:{display:"none",cursor:"pointer",},props:{id:`${MainLivechatConfig.APP}ProactiveClose`,src:closeIconSvg,},}),],}),],props:{id:`${MainLivechatConfig.APP}Proactive`,onmouseenter:()=>{const el=document.getElementById(`${MainLivechatConfig.APP}ProactiveClose`);el.style.display="flex";clearTimeout(timer);},onmouseleave:()=>{timer=setTimeout(()=>{const el=document.getElementById(`${MainLivechatConfig.APP}ProactiveClose`);el.style.display="none";},500);},},});let title=document.title;let showingNotification=false;setInterval(()=>{if(disableTitleUpdate){return;}
+const el=document.getElementById(`${MainLivechatConfig.APP}ControllerBadge`);if(el){const content=Number(el.innerHTML);if(content>0){if(showingNotification===false){document.title=`(${content}) ${title}`;showingNotification=true;}else{document.title=title;showingNotification=false;}}else{document.title=title;}}},1000);try{const position=config.data.widget.settings.theme.position;const frameEl=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);let padHorizontal=`${_horizontalPadding}px`;let padVertical=`${_verticalPadding}px`;if(position==="left"||_alignment==="left"){controllerEl.style.left=padHorizontal;frameEl.style.left=padHorizontal;proactiveEl.style.left=padHorizontal;proactiveEl.style.alignItems="flex-start";}else{controllerEl.style.right=padHorizontal;frameEl.style.right=padHorizontal;proactiveEl.style.right=padHorizontal;proactiveEl.style.alignItems="flex-end";}
+frameEl.style.bottom=padVertical;controllerEl.style.bottom=padVertical;proactiveEl.style.bottom=`${_verticalPadding+80}px`;}catch(err){console.error(err);}
+const audioEl=createElement("audio",{props:{id:`${MainLivechatConfig.APP}AudioElement`,},children:[createElement("source",{props:{src:`${MainLivechatConfig.HOST_URL}${MainLivechatConfig.NOTIFY_SOUND_ENDPOINT}.ogg`,type:"audio/ogg",},}),createElement("source",{props:{src:`${MainLivechatConfig.HOST_URL}${MainLivechatConfig.NOTIFY_SOUND_ENDPOINT}.mp3`,type:"audio/mpeg",},}),createElement("source",{props:{src:`${MainLivechatConfig.HOST_URL}${MainLivechatConfig.NOTIFY_SOUND_ENDPOINT}.wav`,type:"audio/wav",},}),],});appendBody(audioEl);try{const rules=config.data.widget.settings.rules;if(rules!=null){appendBody(proactiveEl);}}catch{console.error("Failed to load Proactive messages");}
+const imgPreviewEl=createElement("div",{props:{id:`${MainLivechatConfig.APP}ImagePreview`,},classList:[`${MainLivechatConfig.APP}ImagePreviewWrapper`,`${MainLivechatConfig.APP}DisplayNone`,],children:[createElement("div",{props:{id:`${MainLivechatConfig.APP}ImagePreviewImageWrapper`,classList:`${MainLivechatConfig.APP}ImagePreviewImageWrapper`,},children:[createElement("img",{props:{id:`${MainLivechatConfig.APP}ImagePreviewSrc`,classList:`${MainLivechatConfig.APP}ImagePreviewSrc`,},attr:{src:"",},}),createElement("img",{props:{onclick:()=>{const el=document.getElementById(`${MainLivechatConfig.APP}ImagePreview`);if(el!=null){el.classList.add(`${MainLivechatConfig.APP}DisplayNone`);const imageEl=document.getElementById(`${MainLivechatConfig.APP}ImagePreviewSrc`);if(imageEl!=null){imageEl.setAttribute("src","");}}},id:`${MainLivechatConfig.APP}ImagePreviewCloseIcon`,classList:`${MainLivechatConfig.APP}ImagePreviewCloseIcon`,},attr:{src:closeIconSvg,},}),],}),],});const soundFunctions={incoming:function(){try{const isMuted=localStorage.getItem("LIVECHAT_MUTED");const disableSounds=window.MainLivechatOptions.disableSounds;console.log("window.MainLivechatOptions",window.MainLivechatOptions);if((isMuted==="false"||!isMuted)&&!disableSounds){audioEl.play();}}catch{}},};window.MainLivechatSound=soundFunctions;setTimeout(()=>{appendBody(imgPreviewEl);if(config.data.widget.settings.options.inline&&!dev){return;}
+appendBody(controllerEl);const params=new URLSearchParams(window.location.search);if(params.get("showMessengerOnLoad")==="true"){MainLivechatInitializer("showMessenger");}},1000);};function MainLivechatInitializeFrame(){const{createElement,applyStyling}=MainLivechatUtils;applyStyling();window.MainLivechatConfig=MainLivechatConfig;const iframeEl=createElement("iframe",{classList:[`${MainLivechatConfig.APP}LivechatFrame-disabled`],style:{display:"none",},props:{srcdoc:`<div id="root"></div>
+      <script src=${MainLivechatConfig.HOST_URL}${MainLivechatConfig.REACT_MAIN_FILE}></script>`,id:`${MainLivechatConfig.APP}LivechatFrame`,},});document.body.append(iframeEl);setTimeout(()=>{iframeEl.style.display="inherit";iframeEl.style.transition="0.2s linear opacity, 0.2s linear transform";},1000);}
+function MainLivechatInitializer(event,arg1,arg2){switch(event){case "load":{const _loadEvents=MainLivechatUtils.loadEvents;for(let i=0;i<_loadEvents.length;i++){const func=_loadEvents[i];try{func();}catch(err){console.log(error);}}
+MainLivechatInitializeButton();break;}
+case "init":{if(document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`))
+return;let app_id=arg1?.app_id;if(!app_id){console.error(new Error("app_id is required | Livechat Error"));return;}
+window.MainLivechatOptions={...(arg1||{})};MainLivechatInitializeFrame();break;}
+case "showMessenger":{const el=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);el.classList.remove(`${MainLivechatConfig.APP}LivechatFrame-disabled`);window.LivechatFunction("showMessenger");break;}
+case "showMessengerFrame":{const el=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);const controllerEl=document.getElementById(`${MainLivechatConfig.APP}Controller`);const proactiveEl=document.getElementById(`${MainLivechatConfig.APP}Proactive`);try{controllerEl.classList.remove(`${MainLivechatConfig.APP}LivechatShowMobile`);controllerEl.classList.remove(`${MainLivechatConfig.APP}LivechatShowDesktop`);controllerEl.classList.add(`${MainLivechatConfig.APP}DisplayNone`);}catch{}
+try{proactiveEl.classList.add(`${MainLivechatConfig.APP}DisplayNone`);}catch{}
+el.classList.remove(`${MainLivechatConfig.APP}LivechatFrame-disabled`);break;}
+case "hideMessenger":{const el=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);const controllerEl=document.getElementById(`${MainLivechatConfig.APP}Controller`);const proactiveEl=document.getElementById(`${MainLivechatConfig.APP}Proactive`);try{const data=window.MainLivechatData;if(data.widget.settings.button.mobile==1){controllerEl.classList.add(`${MainLivechatConfig.APP}LivechatShowMobile`);}
+if(data.widget.settings.button.web==1){controllerEl.classList.add(`${MainLivechatConfig.APP}LivechatShowDesktop`);}
+controllerEl.classList.remove(`${MainLivechatConfig.APP}DisplayNone`);}catch{}
+try{proactiveEl.classList.remove(`${MainLivechatConfig.APP}DisplayNone`);}catch{}
+el.classList.add(`${MainLivechatConfig.APP}LivechatFrame-disabled`);window.LivechatFunction("hideMessenger");const func=window.MainLivechatUtils?.updateUnread;if(func){func(0);}
+break;}
+case "sendConfig":{window.LivechatFunction("sendConfig",arg1);break;}
+case "openChat":{window.LivechatFunction("openChat",arg1);break;}
+case "shutdown":{const el=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);const controllerEl=document.getElementById(`${MainLivechatConfig.APP}Controller`);if(el){el.remove();}
+if(controllerEl){controllerEl.remove();}
+break;}
+case "postEvent":{const el=document.getElementById(`${MainLivechatConfig.APP}LivechatFrame`);if(!el)return;if(Array.from(el.classList).includes(`${MainLivechatConfig.APP}LivechatFrame-disabled`)){return;}
+el.contentWindow.focus();setTimeout(()=>{window.LivechatFunction("postEvent",arg1);},100);break;}
+case "blurInput":{const livechatFn=window.LivechatFunction;if(livechatFn!=null){livechatFn("blurInput");}
+break;}
+case "openRateMessageById":{const livechatFn=window.LivechatFunction;if(livechatFn!=null){livechatFn("openRateMessageById",arg1);}
+break;}
+case "showWidgetButton":{const controllerEl=document.getElementById(`${MainLivechatConfig.APP}Controller`);if(!controllerEl)return;controllerEl.classList.remove(`${MainLivechatConfig.APP}DisplayNone`);const proactiveEl=document.getElementById(`${MainLivechatConfig.APP}Proactive`);if(proactiveEl!=null){proactiveEl.classList.remove(`${MainLivechatConfig.APP}DisplayNone`);}
+const livechatFn=window.LivechatFunction;if(livechatFn!=null){livechatFn("showWidgetButton");}
+break;}
+case "hideWidgetButton":{const controllerEl=document.getElementById(`${MainLivechatConfig.APP}Controller`);if(!controllerEl)return;controllerEl.classList.add(`${MainLivechatConfig.APP}DisplayNone`);const proactiveEl=document.getElementById(`${MainLivechatConfig.APP}Proactive`);if(proactiveEl!=null){proactiveEl.classList.add(`${MainLivechatConfig.APP}DisplayNone`);}
+const livechatFn=window.LivechatFunction;if(livechatFn!=null){livechatFn("hideWidgetButton",arg1);}
+break;}
+case "onShow":{MainLivechatUtils.showEvents.push(arg1);break;}
+case "onHide":{MainLivechatUtils.hideEvents.push(arg1);break;}
+case "onLoad":{MainLivechatUtils.loadEvents.push(arg1);break;}
+case "onUnreadCountChange":{MainLivechatUtils.onUnreadChangeEvents.push(arg1);break;}
+case "onConversationCreated":{MainLivechatUtils.onConversationCreatedEvents.push(arg1);break;}
+case "onIncomingMessage":{MainLivechatUtils.onIncomingMessageEvents.push(arg1);break;}
+case "onProactiveShow":{MainLivechatUtils.onProactiveShowEvents.push(arg1);break;}
+case "onProactiveHide":{MainLivechatUtils.onProactiveHideEvents.push(arg1);break;}
+case "onProactiveClick":{MainLivechatUtils.onProactiveClickEvents.push(arg1);break;}
+case "off":{if(typeof arg1!=="string"){console.error("Invalid event name type. Event name should be a string data type.");return;}
+if(arg1==="show"){MainLivechatUtils.showEvents=[];}else if(arg1==="hide"){MainLivechatUtils.hideEvents=[];}else if(arg1==="load"){MainLivechatUtils.loadEvents=[];}else if(arg1==="unreadCountChange"){MainLivechatUtils.onUnreadChangeEvents=[];}else if(arg1==="conversationCreated"){MainLivechatUtils.onConversationCreatedEvents=[];}else if(arg1==="urlClicked"){}else{console.error(`Invalid event name ${arg1}`);return;}
+break;}
+default:{break;}}}

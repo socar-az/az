@@ -1,0 +1,91 @@
+div.chartjs {
+	width: 90%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+div.chartjs canvas {
+	display: block;
+	margin: 0 auto;
+	width: 75% !important;
+	height: unset !important;
+	max-width: 380px !important;
+	max-height: 380px !important;
+}
+
+div.chartjs .pie-legend, 
+div.chartjs .doughnut-legend,
+div.chartjs .polararea-legend {
+	/* display: grid;
+	-webkit-column-gap: 16px;
+	-moz-column-gap: 16px;
+	column-gap: 16px;
+	row-gap: 12px;
+	margin-top: 40px;
+	grid-template-columns: repeat(2, 1fr); */
+	
+	display: flex;
+	flex-direction: row;
+    justify-content: center;
+    align-items: center;
+	flex-wrap: wrap;
+
+}
+
+div.chartjs li:before { 
+	content: "";
+	display: none;
+
+}
+
+@media (min-width: 414px) {
+	div.chartjs .pie-legend, 
+	div.chartjs .doughnut-legend,
+	div.chartjs .polararea-legend  {
+		/* grid-template-columns: repeat(3, 1fr); */
+	}
+}
+
+@media (min-width: 1200px) {
+	div.chartjs canvas {
+		/* grid-template-columns: repeat(5, 1fr); */
+		/* margin: 50px auto 0 auto; */
+	}
+}
+
+@media (min-width: 1200px) {
+	div.chartjs .pie-legend, 
+	div.chartjs .doughnut-legend,
+	div.chartjs .polararea-legend 
+	 {
+		/* grid-template-columns: repeat(5, 1fr); */
+		/* margin: 50px auto 0 auto; */
+		/* width: 75%; */
+	}
+}
+
+div.chartjs div.chartjs-legend span {
+	display: inline-block;
+    width: 12px;
+    height: 12px;
+    /* border-radius: 50%; */
+	margin-right: 10px;
+	/* margin-bottom:-1px; */
+}
+
+div.chartjs div.chartjs-legend ul {
+	list-style-type:none;
+}
+
+div.chartjs div.chartjs-legend li {
+	margin-top:10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
